@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sehatiin - Kesehatan Dalam Genggaman</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --primary: #084B83;
+      --secondary: #42BFDD;
+      --accent: #BBE6E4;
+      --dark: #052d4f;
+      --light: #f8fcfd;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 3px 15px rgba(8, 75, 131, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      background: linear-gradient(90deg, var(--dark), var(--primary));
+      padding: 15px 60px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-container:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-icon {
+      width: 45px;
+      height: 45px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--secondary);
+      font-size: 22px;
+      animation: pulse 2s infinite;
+      box-shadow: 0 4px 15px rgba(66, 191, 221, 0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 4px 15px rgba(66, 191, 221, 0.3); }
+      50% { transform: scale(1.1); box-shadow: 0 6px 20px rgba(66, 191, 221, 0.5); }
+    }
+
+    header h1 { font-size: 26px; font-weight: 600; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: 0.3s;
+      padding: 8px 0;
+      font-size: 15px;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 3px;
+      background: var(--accent);
+      bottom: 0;
+      left: 0;
+      transition: width 0.3s;
+      border-radius: 2px;
+    }
+
+    nav a:hover::after,
+    nav a.active::after { width: 100%; }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .menu-toggle span {
+      width: 28px; height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 15px 25px; }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 200px;
+        border-radius: 15px;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(8, 75, 131, 0.3);
+      }
+      nav ul.active { display: flex; }
+      .menu-toggle { display: flex; }
+    }
+
+    /* SECTION STYLE */
+    section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+    section.show { opacity: 1; transform: translateY(0); }
+
+    /* BERANDA - HERO */
+    #beranda {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.08;
+      background-image: 
+        radial-gradient(circle at 20% 50%, white 2px, transparent 2px),
+        radial-gradient(circle at 80% 80%, white 2px, transparent 2px);
+      background-size: 100px 100px;
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      max-width: 950px;
+    }
+
+    #beranda h2 {
+      font-size: 52px;
+      margin-bottom: 20px;
+      animation: fadeInUp 1s ease;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      font-weight: 700;
+    }
+
+    #beranda .subtitle {
+      font-size: 24px;
+      margin-bottom: 18px;
+      font-weight: 500;
+      animation: fadeInUp 1.2s ease;
+      color: var(--accent);
+    }
+
+    #beranda p {
+      font-size: 17px;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      opacity: 0.95;
+      animation: fadeInUp 1.4s ease;
+      line-height: 1.8;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.6s ease;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--primary);
+      padding: 16px 38px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255,255,255,0.5);
+      background: var(--accent);
+      color: var(--dark);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      padding: 16px 38px;
+      border: 2px solid white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .btn-secondary:hover {
+      background: white;
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* STATS SECTION */
+    .stats-section {
+      background: white;
+      padding: 70px 20px;
+      box-shadow: 0 -5px 20px rgba(8, 75, 131, 0.08);
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    @media (max-width: 992px) {
+      .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .stats-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        max-width: 350px;
+      }
+    }
+
+    .stat-box {
+      transition: transform 0.3s ease;
+      padding: 25px 20px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--light), white);
+    }
+
+    @media (max-width: 576px) {
+      .stat-box {
+        padding: 30px 20px;
+      }
+    }
+
+    .stat-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(66, 191, 221, 0.15);
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .stat-number {
+        font-size: 42px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .stat-number {
+        font-size: 40px;
+      }
+    }
+
+    .stat-label {
+      font-size: 16px;
+      color: #555;
+      font-weight: 500;
+    }
+
+    /* FITUR */
+    #fitur {
+      padding: 90px 20px;
+      background: linear-gradient(180deg, var(--light) 0%, #ffffff 100%);
+    }
+
+    #fitur h3 {
+      text-align: center;
+      font-size: 40px;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 60px;
+      font-size: 17px;
+    }
+
+    .fitur-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 35px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .fitur-box {
+      background: white;
+      border-radius: 20px;
+      padding: 45px 35px;
+      text-align: center;
+      box-shadow: 0 5px 25px rgba(8, 75, 131, 0.1);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+    }
+
+    .fitur-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .fitur-box:hover::before {
+      transform: scaleX(1);
+    }
+
+    .fitur-box:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 15px 45px rgba(66, 191, 221, 0.25);
+      border-color: var(--accent);
+    }
+
+    .fitur-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: white;
+      font-size: 36px;
+      transition: transform 0.4s ease;
+      box-shadow: 0 8px 20px rgba(66, 191, 221, 0.3);
+    }
+
+    .fitur-box:hover .fitur-icon {
+      transform: rotateY(360deg) scale(1.1);
+    }
+
+    .fitur-box h4 { 
+      color: var(--primary); 
+      margin-bottom: 15px;
+      font-size: 21px;
+      font-weight: 600;
+    }
+
+    .fitur-box p {
+      color: #666;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    /* TESTIMONIAL */
+    #testimonial {
+      padding: 90px 20px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+    }
+
+    #testimonial h3 {
+      text-align: center;
+      font-size: 40px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .testimonial-container {
+      max-width: 1000px;
+      margin: 60px auto 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testimonial-slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .testimonial-card {
+      min-width: 100%;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 50px;
+      text-align: center;
+      transition: all 0.5s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+
+    .testimonial-avatar {
+      width: 90px;
+      height: 90px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: var(--secondary);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    .testimonial-text {
+      font-size: 19px;
+      font-style: italic;
+      margin-bottom: 25px;
+      line-height: 1.9;
+      opacity: 0.95;
+    }
+
+    .testimonial-author {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .testimonial-role {
+      opacity: 0.85;
+      font-size: 15px;
+    }
+
+    .testimonial-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .dot:hover {
+      background: rgba(255,255,255,0.7);
+    }
+
+    .dot.active {
+      background: white;
+      width: 35px;
+      border-radius: 6px;
+    }
+
+    /* TENTANG */
+    #tentang {
+      background: #ffffff;
+      padding: 90px 20px;
+    }
+
+    .tentang-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .tentang-content h3 {
+      color: var(--primary);
+      margin-bottom: 25px;
+      font-size: 40px;
+      font-weight: 700;
+    }
+
+    .tentang-content p {
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.9;
+      font-size: 16px;
+    }
+
+    .tentang-features {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px;
+      background: var(--light);
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .feature-item:hover {
+      background: var(--accent);
+      transform: translateX(10px);
+      border-color: var(--secondary);
+      box-shadow: 0 5px 20px rgba(66, 191, 221, 0.2);
+    }
+
+    .feature-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      flex-shrink: 0;
+      font-size: 20px;
+    }
+
+    .tentang-image {
+      position: relative;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 450px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 90px;
+      box-shadow: 0 25px 70px rgba(8, 75, 131, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-placeholder::before {
+      content: '';
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* KONTAK */
+    #kontak {
+      background: linear-gradient(180deg, var(--light) 0%, #ffffff 100%);
+      padding: 90px 20px;
+    }
+
+    #kontak h3 {
+      color: var(--primary);
+      font-size: 40px;
+      margin-bottom: 15px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    #kontak > p {
+      max-width: 700px;
+      margin: 0 auto 60px;
+      color: #666;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    .kontak-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+    }
+
+    .kontak-info {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .kontak-box {
+      background: white;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 5px 20px rgba(8, 75, 131, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      border: 2px solid transparent;
+    }
+
+    .kontak-box:hover { 
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(66, 191, 221, 0.25);
+      border-color: var(--accent);
+    }
+
+    .kontak-box i {
+      font-size: 30px;
+      color: var(--secondary);
+      width: 60px;
+      height: 60px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .kontak-box-content h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .kontak-box-content p { 
+      color: #666; 
+      font-size: 15px;
+    }
+
+    .kontak-form {
+      background: white;
+      padding: 45px;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(8, 75, 131, 0.12);
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      font-size: 15px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 4px rgba(66, 191, 221, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 130px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      padding: 16px;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 17px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(66, 191, 221, 0.4);
+    }
+
+    /* CTA */
+    #cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      text-align: center;
+      padding: 90px 20px;
+    }
+
+    #cta h3 {
+      font-size: 40px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    #cta p {
+      font-size: 19px;
+      margin-bottom: 40px;
+      opacity: 0.95;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      background: white;
+      color: var(--primary);
+      padding: 16px 38px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+    }
+
+    .cta-btn:hover {
+      background: var(--accent);
+      color: var(--dark);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(255,255,255,0.5);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 70px 20px 35px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 25px;
+      font-size: 19px;
+      color: var(--accent);
+    }
+
+    .footer-section p {
+      color: #b0b0b0;
+      line-height: 1.9;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+
+    .footer-links a {
+      color: #b0b0b0;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 15px;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-links a {
+      width: 45px;
+      height: 45px;
+      background: rgba(66, 191, 221, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(66, 191, 221, 0.4);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(66, 191, 221, 0.2);
+      padding-top: 35px;
+      text-align: center;
+      color: #b0b0b0;
+      font-size: 15px;
+    }
+
+    /* SCROLL TO TOP */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 35px;
+      right: 35px;
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
+      color: white;
+      border: none;
+      padding: 14px 18px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(66, 191, 221, 0.4);
+      font-size: 22px;
+      display: none;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+
+    #scrollTopBtn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(66, 191, 221, 0.6);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      #beranda h2 { font-size: 36px; }
+      #beranda .subtitle { font-size: 20px; }
+      .hero-buttons { flex-direction: column; }
+      .fitur-container { grid-template-columns: 1fr; }
+      .tentang-container { grid-template-columns: 1fr; }
+      .kontak-container { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; }
+      #fitur h3, #testimonial h3, .tentang-content h3, #kontak h3, #cta h3 {
+        font-size: 32px;
+      }
+      .image-placeholder { height: 350px; font-size: 70px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo-container" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+      <div class="logo-icon">
+        <i class="fa-solid fa-heartbeat"></i>
+      </div>
+      <h1>Sehatiin</h1>
+    </div>
+    <nav>
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span><span></span><span></span>
+      </div>
+      <ul id="nav-list">
+        <li><a href="#beranda" class="active">Beranda</a></li>
+        <li><a href="#fitur">Fitur</a></li>
+        <li><a href="#testimonial">Testimoni</a></li>
+        <li><a href="#tentang">Tentang</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="beranda" class="show">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h2>Kesehatan Dalam Genggaman</h2>
+      <div class="subtitle">Platform Kesehatan Digital Terpercaya</div>
+      <p>Konsultasi dokter, booking online, dan pantau antrean secara real time. Semua dalam satu aplikasi yang mudah digunakan.</p>
+      <div class="hero-buttons">
+        <a href="#fitur" class="btn-primary">
+          <i class="fa-solid fa-rocket"></i> Mulai Sekarang
+        </a>
+        <a href="#tentang" class="btn-secondary">
+          <i class="fa-solid fa-play-circle"></i> Pelajari Lebih Lanjut
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats-section">
+    <div class="stats-container">
+      <div class="stat-box">
+        <span class="stat-number" data-target="10000">0</span>
+        <span class="stat-label">Pengguna Aktif</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number" data-target="500">0</span>
+        <span class="stat-label">Dokter Profesional</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number" data-target="50000">0</span>
+        <span class="stat-label">Konsultasi Berhasil</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-number" data-target="98">0</span>
+        <span class="stat-label">Tingkat Kepuasan (%)</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="fitur">
+    <h3>Fitur Unggulan Kami</h3>
+    <p class="section-subtitle">Berbagai layanan kesehatan yang memudahkan hidup Anda</p>
+    <div class="fitur-container">
+      <div class="fitur-box">
+        <div class="fitur-icon"><i class="fa-solid fa-calendar-check"></i></div>
+        <h4>Booking Dokter</h4>
+        <p>Atur jadwal konsultasi dengan mudah tanpa menunggu lama. Pilih dokter dan waktu yang sesuai.</p>
+      </div>
+      <div class="fitur-box">
+        <div class="fitur-icon"><i class="fa-solid fa-video"></i></div>
+        <h4>Konsultasi Online</h4>
+        <p>Konsultasi dengan dokter profesional dari mana saja melalui video call yang aman.</p>
+      </div>
+      <div class="fitur-box">
+        <div class="fitur-icon"><i class="fa-solid fa-clock"></i></div>
+        <h4>Status Antrean</h4>
+        <p>Pantau antrean Anda secara real time dan dapatkan notifikasi saat giliran Anda tiba.</p>
+      </div>
+      <div class="fitur-box">
+        <div class="fitur-icon"><i class="fa-solid fa-user-doctor"></i></div>
+        <h4>Profil Dokter</h4>
+        <p>Lihat profil lengkap, spesialisasi, dan rating dokter sebelum melakukan booking.</p>
+      </div>
+      <div class="fitur-box">
+        <div class="fitur-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></div>
+        <h4>Resep Digital</h4>
+        <p>Terima resep obat secara digital dan pesan langsung ke apotek terdekat dengan mudah.</p>
+      </div>
+      <div class="fitur-box">
+        <div class="fitur-icon"><i class="fa-solid fa-file-medical"></i></div>
+        <h4>Rekam Medis Digital</h4>
+        <p>Akses riwayat kesehatan Anda kapan saja dengan sistem penyimpanan digital yang aman.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonial">
+    <h3>Apa Kata Mereka?</h3>
+    <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Testimoni dari pengguna setia Sehatiin</p>
+    
+    <div class="testimonial-container">
+      <div class="testimonial-slider" id="testimonial-slider">
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">👨‍💼</div>
+          <p class="testimonial-text">"Sehatiin sangat membantu saya yang sibuk. Bisa konsultasi dokter tanpa harus keluar kantor. Aplikasinya mudah digunakan dan responsif!"</p>
+          <p class="testimonial-author">Budi Santoso</p>
+          <p class="testimonial-role">Karyawan Swasta</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">👩‍⚕️</div>
+          <p class="testimonial-text">"Sebagai ibu rumah tangga, Sehatiin memudahkan saya mengatur kesehatan keluarga. Fitur booking dan tracking antrean sangat praktis!"</p>
+          <p class="testimonial-author">Siti Nurhaliza</p>
+          <p class="testimonial-role">Ibu Rumah Tangga</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">👨‍🎓</div>
+          <p class="testimonial-text">"Aplikasi yang cocok untuk mahasiswa seperti saya. Harganya terjangkau dan bisa konsultasi kesehatan kapan saja. Recommended!"</p>
+          <p class="testimonial-author">Ahmad Rizki</p>
+          <p class="testimonial-role">Mahasiswa</p>
+        </div>
+        
+        <div class="testimonial-card">
+          <div class="testimonial-avatar">👵</div>
+          <p class="testimonial-text">"Saya sudah lama mencari aplikasi yang bisa menghubungkan saya dengan dokter spesialis di daerah saya. Sehatiin mewujudkannya. Proses bookingnya sangat mudah!"</p>
+          <p class="testimonial-author">Ibu Ratna</p>
+          <p class="testimonial-role">Pensiunan Guru</p>
+        </div>
+      </div>
+      
+      <div class="testimonial-dots">
+        <span class="dot active" onclick="showTestimonial(0)"></span>
+        <span class="dot" onclick="showTestimonial(1)"></span>
+        <span class="dot" onclick="showTestimonial(2)"></span>
+        <span class="dot" onclick="showTestimonial(3)"></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="tentang">
+    <div class="tentang-container">
+      <div class="tentang-content">
+        <h3>Tentang Sehatiin</h3>
+        <p>Sehatiin adalah platform kesehatan digital yang memudahkan masyarakat mendapatkan layanan medis cepat, aman, dan terpercaya. Kami menghubungkan pasien dengan tenaga medis profesional melalui teknologi modern.</p>
+        <p>Dengan komitmen untuk memberikan pelayanan terbaik, kami terus berinovasi dalam menghadirkan solusi kesehatan yang accessible untuk semua kalangan.</p>
+        
+        <div class="tentang-features">
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div>
+              <strong>Keamanan Terjamin</strong>
+              <p style="margin: 0; font-size: 14px; color: #666;">Data kesehatan Anda dilindungi dengan enkripsi tingkat tinggi</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-certificate"></i></div>
+            <div>
+              <strong>Dokter Tersertifikasi</strong>
+              <p style="margin: 0; font-size: 14px; color: #666;">Semua dokter telah terverifikasi dan berpengalaman</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+            <div>
+              <strong>Support 24/7</strong>
+              <p style="margin: 0; font-size: 14px; color: #666;">Tim customer service siap membantu Anda kapan saja</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tentang-image">
+        <div class="image-placeholder">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontak">
+    <h3>Hubungi Kami</h3>
+    <p>Tim Sehatiin siap membantu Anda. Jangan ragu untuk menghubungi kami!</p>
+
+    <div class="kontak-container">
+      <div class="kontak-info">
+        <div class="kontak-box">
+          <i class="fa-solid fa-envelope"></i>
+          <div class="kontak-box-content">
+            <h4>Email</h4>
+            <p>info@sehatiin.com</p>
+          </div>
+        </div>
+        <div class="kontak-box">
+          <i class="fa-solid fa-phone"></i>
+          <div class="kontak-box-content">
+            <h4>Telepon</h4>
+            <p>+62 812 3456 7890</p>
+          </div>
+        </div>
+        <div class="kontak-box">
+          <i class="fa-solid fa-location-dot"></i>
+          <div class="kontak-box-content">
+            <h4>Alamat</h4>
+            <p>Jl. Kesehatan No. 12, Kota Jambi</p>
+          </div>
+        </div>
+        <div class="kontak-box">
+          <i class="fa-brands fa-whatsapp"></i>
+          <div class="kontak-box-content">
+            <h4>WhatsApp</h4>
+            <p>Chat dengan kami di WhatsApp</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="kontak-form">
+        <form id="contact-form">
+          <div class="form-group">
+            <label for="name">Nama Lengkap</label>
+            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Pesan</label>
+            <textarea id="message" name="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">
+            <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <h3>Siap Untuk Hidup Lebih Sehat?</h3>
+    <p>Bergabunglah dengan ribuan pengguna yang telah merasakan kemudahan Sehatiin</p>
+    <div class="cta-buttons">
+      <a href="https://wa.me/6281234567890" target="_blank" class="cta-btn">
+        <i class="fa-brands fa-whatsapp"></i> Hubungi Via WhatsApp
+      </a>
+      <a href="#kontak" class="cta-btn">
+        <i class="fa-solid fa-envelope"></i> Kirim Pesan
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4><i class="fa-solid fa-heartbeat"></i> Sehatiin</h4>
+        <p>Platform kesehatan digital yang menghubungkan Anda dengan layanan medis terbaik.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Layanan</h4>
+        <ul class="footer-links">
+          <li><a href="#fitur">Booking Dokter</a></li>
+          <li><a href="#fitur">Konsultasi Online</a></li>
+          <li><a href="#fitur">Rekam Medis</a></li>
+          <li><a href="#fitur">Resep Digital</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Perusahaan</h4>
+        <ul class="footer-links">
+          <li><a href="#tentang">Tentang Kami</a></li>
+          <li><a href="#testimonial">Testimoni</a></li>
+          <li><a href="#">Karir</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Bantuan</h4>
+        <ul class="footer-links">
+          <li><a href="#kontak">Hubungi Kami</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Kebijakan Privasi</a></li>
+          <li><a href="#">Syarat & Ketentuan</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 Sehatiin. Semua hak dilindungi undang-undang.</p>
+    </div>
+  </footer>
+
+  <button id="scrollTopBtn" aria-label="Scroll to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script>
+    const toggle = document.getElementById('menu-toggle');
+    const navList = document.getElementById('nav-list');
+    const header = document.querySelector('header');
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    const scrollBtn = document.getElementById('scrollTopBtn');
+
+    toggle.addEventListener('click', () => {
+      navList.classList.toggle('active');
+      toggle.classList.toggle('active');
+    });
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navList.classList.remove('active');
+        toggle.classList.remove('active');
+      });
+    });
+
+    const revealSection = () => {
+      const trigger = window.innerHeight * 0.85;
+      sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < trigger) sec.classList.add('show');
+      });
+    };
+    window.addEventListener('scroll', revealSection);
+
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        const sectionTop = sec.offsetTop - 80;
+        if (scrollY >= sectionTop) current = sec.getAttribute('id');
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      scrollBtn.style.display = window.scrollY > 400 ? 'block' : 'none';
+    });
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    const counters = document.querySelectorAll('.stat-number');
+    let animated = false;
+
+    const animateCounters = () => {
+      if (animated) return;
+      
+      const statsSection = document.querySelector('.stats-section');
+      const statsSectionTop = statsSection.getBoundingClientRect().top;
+      
+      if (statsSectionTop < window.innerHeight * 0.8) {
+        animated = true;
+        counters.forEach(counter => {
+          const target = +counter.getAttribute('data-target');
+          const increment = target / 100;
+          let current = 0;
+          
+          const updateCounter = () => {
+            if (current < target) {
+              current += increment;
+              counter.textContent = Math.ceil(current).toLocaleString();
+              setTimeout(updateCounter, 20);
+            } else {
+              counter.textContent = target.toLocaleString() + (counter.parentElement.querySelector('.stat-label').textContent.includes('%') ? '%' : '');
+            }
+          };
+          updateCounter();
+        });
+      }
+    };
+
+    window.addEventListener('scroll', animateCounters);
+
+    let currentTestimonial = 0;
+    const testimonialSlider = document.getElementById('testimonial-slider');
+    const dots = document.querySelectorAll('.dot');
+    const totalTestimonials = 4;
+
+    function showTestimonial(index) {
+      currentTestimonial = index;
+      testimonialSlider.style.transform = `translateX(-${index * 100}%)`;
+      
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    setInterval(() => {
+      currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+      showTestimonial(currentTestimonial);
+    }, 5000);
+
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      alert(`Terima kasih ${name}! Pesan Anda telah diterima. Kami akan segera menghubungi Anda.`);
+      
+      e.target.reset();
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    const fiturBoxes = document.querySelectorAll('.fitur-box');
+    fiturBoxes.forEach(box => {
+      box.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-12px) scale(1.02)';
+      });
+      box.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
+</body>
+</html>
